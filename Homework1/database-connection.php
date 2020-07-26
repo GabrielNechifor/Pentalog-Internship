@@ -9,6 +9,4 @@ function getDatabaseConnection() : PDO {
         die("Connection failed: " . $e->getMessage());
       }
       return $conn;
-} 
-
-?>
+}

@@ -59,46 +59,26 @@
 
 <body>
 
-  <h1>Update informations about a book</h1>
+  <h1>Add a book</h1>
 
-  <?php
-  require "database-connection.php";
-
-  if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $databaseConnection = getDatabaseConnection();
-    $id = $_GET['id'];
-
-    $statement = $databaseConnection->prepare("SELECT title, author_name, publisher_name, publish_year FROM books WHERE id=$id;");
-    $statement->execute();
-    $book = $statement->fetch();
-
-    $title = $book['title'];
-    $author = $book['author_name'];
-    $publisher = $book['publisher_name'];
-    $year = $book['publish_year'];
-  } else {
-    die('Invalid request');
-  }
-  ?>
-
-  <form action="./update.php" method="POST">
-    <input type="hidden" id="id" name="id" value="<?= $id ?>">
-
+  <form action="./store" method="POST">
     <label for="Title">Title:</label>
-    <input type="text" id="title" name="title" value="<?= $title ?>" required><br><br>
+    <input type="text" id="title" name="title" required><br><br>
 
     <label for="Author">Author:</label>
-    <input type="text" id="author" name="author" value="<?= $author ?>" required><br><br>
+    <input type="text" id="author" name="author" required><br><br>
 
     <label for="Publisher">Publisher:</label>
-    <input type="text" id="publisher" name="publisher" value="<?= $publisher ?>" required><br><br>
+    <input type="text" id="publisher" name="publisher" required><br><br>
 
     <label for="Year">Year:</label>
-    <input type="number" id="year" name="year" min="1000" max="9999" value="<?= $year ?>" required><br><br>
+    <input type="number" id="year" name="year" min="1000" max="9999" required><br><br>
 
-    <button><a href="index.php">Cancel</a></button>
-    <input type="submit" value="Update">
+    <button><a href="index">Cancel</a></button>
+    <input type="submit" value="Save">
   </form>
+
+
 
 </body>
 

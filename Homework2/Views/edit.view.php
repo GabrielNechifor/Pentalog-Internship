@@ -61,28 +61,8 @@
 
   <h1>Update informations about a book</h1>
 
-  <?php
-  require "database-connection.php";
-
-  if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $databaseConnection = getDatabaseConnection();
-    $id = $_GET['id'];
-
-    $statement = $databaseConnection->prepare("SELECT title, author_name, publisher_name, publish_year FROM books WHERE id=$id;");
-    $statement->execute();
-    $book = $statement->fetch();
-
-    $title = $book['title'];
-    $author = $book['author_name'];
-    $publisher = $book['publisher_name'];
-    $year = $book['publish_year'];
-  } else {
-    die('Invalid request');
-  }
-  ?>
-
-  <form action="./update.php" method="POST">
-    <input type="hidden" id="id" name="id" value="<?= $id ?>">
+  <form action="./update" method="POST">
+    <input type="hidden" id="id" name="id" value="<?= $idBook ?>">
 
     <label for="Title">Title:</label>
     <input type="text" id="title" name="title" value="<?= $title ?>" required><br><br>
@@ -96,7 +76,7 @@
     <label for="Year">Year:</label>
     <input type="number" id="year" name="year" min="1000" max="9999" value="<?= $year ?>" required><br><br>
 
-    <button><a href="index.php">Cancel</a></button>
+    <button><a href="index">Cancel</a></button>
     <input type="submit" value="Update">
   </form>
 
