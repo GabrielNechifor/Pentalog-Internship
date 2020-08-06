@@ -95,7 +95,6 @@
 
 <body>
     <h1>List of books</h1>
-
     <table>
         <tr>
             <th> ID </th>
