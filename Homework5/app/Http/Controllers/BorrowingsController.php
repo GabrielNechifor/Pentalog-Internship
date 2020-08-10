@@ -35,11 +35,11 @@ class BorrowingsController extends Controller
 
     public function store(StoreBorrowingPost $request)
     {
+        dd($request);
         $book = Book::get()->filter(function($item) use ($request) {
             return $item->fullTitle == $request->input('book_title');
         });
         $user = User::whereName($request->input('user_name'))->first();
-
         Borrowing::create([
             'book_id' => $book->id,
             'user_id' => $user->id,

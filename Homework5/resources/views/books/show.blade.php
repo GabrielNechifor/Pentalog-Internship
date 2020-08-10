@@ -63,7 +63,7 @@
         <div class="container">
             <form class="col-sm-6 text-center" action="/borrowings/store" method="POST">
                 <input type="text" name=book_title value="{{$book->fullTitle}}" hidden>
-                <input type="text" name="user_name" value="{{ Auth::user()->name }}" hidden>
+                <input type="text" name="user_name" value="{{ Auth::guard('user')->user()->name }}" hidden>
                 <input type="submit" value="Borrow" class="btn btn-primary">
             </form>
         </div>
