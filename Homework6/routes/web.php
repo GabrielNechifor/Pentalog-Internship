@@ -16,14 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'BooksController@index');
 
-Route::get('/books', 'BooksController@index');
-Route::get('/books/{id}', 'BooksController@show');
-
-Route::get('/authors', 'AuthorsController@index');
-Route::get('/authors/{id}', 'AuthorsController@show');
-
-
-
 Route::group(['middleware' => ['auth:admin']], function() {
     Route::get('/books/create', 'BooksController@create');
     Route::post('/books/store', 'BooksController@store');
@@ -37,13 +29,11 @@ Route::group(['middleware' => ['auth:admin']], function() {
     Route::put('/authors/update', 'AuthorsController@update');
     Route::delete('/authors/delete/{id}', 'AuthorsController@delete');
 
-    Route::get('/publishers', 'PublishersController@index');
     Route::get('/publishers/create', 'PublishersController@create');
     Route::post('/publishers/store', 'PublishersController@store');
     Route::get('/publishers/edit/{id}', 'PublishersController@edit');
     Route::put('/publishers/update', 'PublishersController@update');
     Route::delete('/publishers/delete/{id}', 'PublishersController@delete');
-    Route::get('/publishers/{id}', 'PublishersController@show');
 
     Route::get('/users', 'UsersController@index');
     Route::get('/users/create', 'UsersController@create');
@@ -60,10 +50,13 @@ Route::group(['middleware' => ['auth:admin']], function() {
     Route::put('/borrowings/update', 'BorrowingsController@update');
     Route::delete('/borrowings/delete/{id}', 'BorrowingsController@delete');
     Route::get('/borrowings/{id}', 'BorrowingsController@show');
-    });
+});
 
 Route::group(['middleware' => ['auth:user,admin'] ], function() {
     Route::post('/borrowings/store', 'BorrowingsController@store');
+
+    Route::get('/notifications/admin', 'NotificationsController@showAll');
+    Route::get('/notifications/user', 'NotificationsController@showAll');
 });
 
 Auth::routes();
@@ -80,3 +73,11 @@ Route::post('/register/user', 'Auth\RegisterController@createUser');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 
+Route::get('/books', 'BooksController@index');
+Route::get('/books/{id}', 'BooksController@show');
+
+Route::get('/authors', 'AuthorsController@index');
+Route::get('/authors/{id}', 'AuthorsController@show');
+
+Route::get('/publishers', 'PublishersController@index');
+Route::get('/publishers/{id}', 'PublishersController@show');

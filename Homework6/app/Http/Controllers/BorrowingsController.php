@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Borrowing;
 use App\Book;
+use App\Events\BookBorrowed;
 use App\User;
 use App\Http\Requests\StoreBorrowingPost;
 use App\Http\Requests\UpdateBorrowingPut;
@@ -39,12 +40,14 @@ class BorrowingsController extends Controller
             return $item->fullTitle == $request->input('book_title');
         })->first();
         $user = User::whereName($request->input('user_name'))->first();
-        Borrowing::create([
+        $borrowing =Borrowing::create([
             'book_id' => $book->id,
             'user_id' => $user->id,
             'borrowing_date' => $request->input('borrowing_date') ?? NOW(),
             'returning_date' => $request->input('returning_date')
         ]);
+
+        event(new BookBorrowed($borrowing));
 
         return redirect("/borrowings");
     }

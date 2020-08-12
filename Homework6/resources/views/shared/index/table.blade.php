@@ -22,7 +22,7 @@
         @foreach ($columnNames as $columnName)
             <th scope="col">{{$columnName}}</th>
         @endforeach
-        @auth
+        @auth('admin')
             <th scope="col"></th>
             <th scope="col"></th>
         @endauth

@@ -101,25 +101,25 @@
                 @endif
             @endif
             @if (Auth::guard('admin')->check() || Auth::guard('user')->check())
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+                @if (Auth::guard('admin')->check())
+                <a href="{{ '/notifications/admin' }}" class="btn text-light btn-info mr-3">
+                    Notifications <span class="badge badge-light">{{ 'App\Notification'::whereAdminId(Auth::guard('admin')->user()->id)->unseenNumber() }}</span>
+                    <span class="sr-only">unread messages</span>
+                </a>
+                @else
+                <a href="{{ '/notifications/user' }}" class="btn text-light btn-info mr-3">
+                    Notifications <span class="badge badge-light">{{ 'App\Notification'::whereUserId(Auth::guard('user')->user()->id)->unseenNumber() }}</span>
+                    <span class="sr-only">unread messages</span>
+                </a>
+                @endif
+
+                <li class="nav-item dropdown rounded bg-info">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::guard('user')->user()->name ?? Auth::guard('admin')->user()->name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                        {{-- @auth('user')
-                            <a class="dropdown-item" href="{{ route('user.logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        @endauth --}}
-
-                        {{-- @auth('admin') --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -128,7 +128,6 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                        {{-- @endauth --}}
                     </div>
                 </li>
             @endif

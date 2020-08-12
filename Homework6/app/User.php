@@ -26,4 +26,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Book', 'borrowings')
             ->withPivot('borrowing_date', 'returning_date', 'created_at', 'updated_at');;
     }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification');
+    }
 }

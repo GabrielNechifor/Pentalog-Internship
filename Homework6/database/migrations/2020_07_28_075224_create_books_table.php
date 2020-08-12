@@ -24,10 +24,8 @@ class CreateBooksTable extends Migration
             $table->string('cover_link');
             $table->timestamps();
 
-            $table->foreignId('author_id')
-                ->constrained('authors');
-            $table->foreignId('publisher_id')
-                ->constrained('publishers');
+            $table->foreignId('author_id')->constrained();
+            $table->foreignId('publisher_id')->constrained();
         });
     }
 
